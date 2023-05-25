@@ -39,14 +39,55 @@ class Player
         }
 };
 
+void game_menu(bool &playing)
+{
+    std::cout << "Cool Epic Adventure Game!\n";
+    std::cout << "[1] New Game\n";
+    std::cout << "[2] Load Game\n";
+    std::cout << "[3] Exit\n";
+    std::cout << "\n";
+    bool menu = true;
+
+    while (menu)
+    {
+        int input;
+        std::cin >> input;
+
+        switch (input)
+        {
+            case 1:
+                std::cout << "Deez!\n";
+                break;
+
+            case 2:
+                std::cout << "Not Implemented Yet!\n";
+                break;
+
+            case 3:
+                std::cout << "Goodbye...\n";
+                menu = false;
+                playing = false;
+                break;
+
+            default:
+                std::cout << "Wrong Input!\n";
+                break;
+        }
+    }
+}
+
+void game_loop()
+{
+    bool playing = true;
+
+    while (playing)
+    {
+        game_menu(playing);
+    }
+}
 
 int main()
 {
-    Player player;
-    player.init_player("Spruce");
-
-    std::cout << "Players name is " << player.get_name() << "\n";
-    std::cout << "Players position is " << player.get_formatted_position() << "\n";
-    std::cout << "Players armour level is " << std::to_string(player.get_armour_level()) << "\n";
+    game_loop();
     return 0;
 }
