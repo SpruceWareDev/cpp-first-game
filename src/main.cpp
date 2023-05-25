@@ -37,7 +37,82 @@ class Player
         {
             return armour_level;
         }
+
+        int get_x()
+        {
+            return position[0];
+        }
+
+        int get_y()
+        {
+            return position[1];
+        }
 };
+
+class World
+{
+    public:
+        static const int NOTHING = 0;
+        static const int CHEST = 1;
+        static const int ITEM = 2;
+        static const int PLAYER = 3;
+
+    private:
+        Player player;
+        int world[10][10];
+
+    public:
+        void init_world(Player &playerIn)
+        {
+            clear_world();
+            player = playerIn;
+            set_player_pos(player.get_x(), player.get_y());
+        }
+
+        void clear_world()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    world[i][j] = NOTHING;
+                }
+            }
+        }
+
+        void set_player_pos(int x, int y)
+        {
+            world[x][y] = PLAYER;
+        }
+
+        void draw_world()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    std::cout << std::to_string(world[i][j]);
+                }
+                std::cout << "\n";
+            }
+        }
+};
+
+void new_game()
+{
+    std::cout << "You will start by creating your charcter!\n";
+    std::cout << "Enter a character name: ";
+
+    std::string input;
+    getline(std::cin, input);
+    Player thePlayer;
+    thePlayer.init_player(input);
+    std::cout << "Player created!\n";
+
+    World theWorld;
+    theWorld.init_world(thePlayer);
+    theWorld.draw_world();
+}
 
 void game_menu(bool &playing)
 {
@@ -56,7 +131,7 @@ void game_menu(bool &playing)
         switch (input)
         {
             case 1:
-                std::cout << "Deez!\n";
+                new_game();
                 break;
 
             case 2:
